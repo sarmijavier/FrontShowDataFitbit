@@ -1,13 +1,11 @@
 import React from "react"
 import "./App.css"
-import { FormSignUp } from "./login"
+import MainRouter from "./components/routes/mainRouter"
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <FormSignUp />
-            </header>
+        <div className="min-h-screen bg-blue ">
+            <MainRouter />
         </div>
     )
 }
