@@ -7,29 +7,54 @@ import {
     Field,
     FieldProps,
 } from "formik"
+import { useNavigate } from "react-router-dom"
 
 interface MyFormValues {
-    firstName: string
+    email: string
+    password: string
 }
 
 interface InputValues {
     field: any
     form: any
 }
+
+interface Props {
+    setIsAuth: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 const MyInput: React.FunctionComponent<InputValues> = ({ field, ...props }) => {
     return <input className="m-1" {...field} {...props} />
 }
 
-export const FormLogin = () => {
-    const initialValues: MyFormValues = { firstName: "" }
+export const FormLogin: React.FC<Props> = ({ setIsAuth }) => {
+    const initialValues: MyFormValues = { email: "", password: "" }
+
+    const navigate = useNavigate()
+
+    const handleLogin = async (values: MyFormValues) => {
+        const resp = await fetch("/api/v1/login", {
+            method: "POST",
+            body: JSON.stringify(values),
+            headers: {
+                Accept: "application/json",
+            },
+        })
+        const ans = await resp.json()
+        console.log(ans)
+        setIsAuth(true)
+        navigate("/dashboard")
+    }
+
     return (
         <div className="flex justify-center text-center	">
             <Formik
                 initialValues={initialValues}
                 onSubmit={(values, actions) => {
-                    console.log({ values, actions })
-                    alert(JSON.stringify(values, null, 2))
-                    actions.setSubmitting(false)
+                    handleLogin(values)
+                    //console.log({ values, actions })
+                    //alert(JSON.stringify(values, null, 2))
+                    //actions.setSubmitting(false)
                 }}
             >
                 <Form>

@@ -7,6 +7,7 @@ import {
     Field,
     FieldProps,
 } from "formik"
+import { useNavigate } from "react-router-dom"
 
 interface MyFormValues {
     firstName: string
@@ -22,14 +23,30 @@ const MyInput: React.FunctionComponent<InputValues> = ({ field, ...props }) => {
 
 export const FormSignUp = () => {
     const initialValues: MyFormValues = { firstName: "" }
+    const navigate = useNavigate()
+
+    const handleRegister = async (values: MyFormValues) => {
+        const resp = await fetch("/api/v1/register", {
+            method: "POST",
+            body: JSON.stringify(values),
+            headers: {
+                Accept: "application/json",
+            },
+        })
+        const ans = await resp.json()
+        console.log(ans)
+        navigate("/login")
+    }
+
     return (
         <div className="flex justify-center text-center	">
             <Formik
                 initialValues={initialValues}
                 onSubmit={(values, actions) => {
-                    console.log({ values, actions })
-                    alert(JSON.stringify(values, null, 2))
-                    actions.setSubmitting(false)
+                    handleRegister(values)
+                    //console.log({ values, actions })
+                    //alert(JSON.stringify(values, null, 2))
+                    //actions.setSubmitting(false)
                 }}
             >
                 <Form>
