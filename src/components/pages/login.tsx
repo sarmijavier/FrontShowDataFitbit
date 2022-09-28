@@ -8,6 +8,8 @@ import {
     FieldProps,
 } from "formik"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { authentication } from "../../redux/reducers/user"
 
 interface MyFormValues {
     email: string
@@ -19,16 +21,19 @@ interface InputValues {
     form: any
 }
 
-interface Props {
-    setIsAuth: React.Dispatch<React.SetStateAction<boolean>>
-}
+
 
 const MyInput: React.FunctionComponent<InputValues> = ({ field, ...props }) => {
-    return <input className="m-1" {...field} {...props} />
+    return <input className="m-1 text-black	" {...field} {...props} />
 }
 
-export const FormLogin: React.FC<Props> = ({ setIsAuth }) => {
+const InputPassword: React.FunctionComponent<InputValues> = ({ field, ...props }) => {
+    return <input className="m-1 text-black	" type="password" {...field} {...props} />
+}
+
+export const FormLogin: React.FC = () => {
     const initialValues: MyFormValues = { email: "", password: "" }
+    const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
@@ -41,8 +46,9 @@ export const FormLogin: React.FC<Props> = ({ setIsAuth }) => {
             },
         })
         const ans = await resp.json()
-        console.log(ans)
-        setIsAuth(true)
+        if(ans.code === 200){
+            dispatch(authentication())
+        }
         navigate("/dashboard")
     }
 
@@ -74,10 +80,10 @@ export const FormLogin: React.FC<Props> = ({ setIsAuth }) => {
                             <label className="w-full mr-4" htmlFor="firstName">
                                 Password
                             </label>
-                            <Field
+                            <Field     
                                 name="password"
                                 placeholder="password"
-                                component={MyInput}
+                                component={InputPassword}
                             />
                         </div>
 

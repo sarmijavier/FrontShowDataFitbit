@@ -18,7 +18,11 @@ interface InputValues {
     form: any
 }
 const MyInput: React.FunctionComponent<InputValues> = ({ field, ...props }) => {
-    return <input className="m-1" {...field} {...props} />
+    return <input className="m-1 text-black	" {...field} {...props} />
+}
+
+const InputPassword: React.FunctionComponent<InputValues> = ({ field, ...props }) => {
+    return <input className="m-1 text-black	" type="password" {...field} {...props} />
 }
 
 export const FormSignUp = () => {
@@ -50,7 +54,7 @@ export const FormSignUp = () => {
                 }}
             >
                 <Form>
-                    <h1 className="text-slate-100">LOGIN</h1>
+                    <h1 className="text-slate-100">SIGN UP</h1>
                     <div className="grid">
                         <div className="flex  text-left">
                             <label className="w-full mr-4" htmlFor="firstName">
@@ -79,7 +83,7 @@ export const FormSignUp = () => {
                             <Field
                                 name="password"
                                 placeholder="password"
-                                component={MyInput}
+                                component={InputPassword}
                             />
                         </div>
                         <div className="flex text-left">
@@ -89,7 +93,7 @@ export const FormSignUp = () => {
                             <Field
                                 name="confirm_password"
                                 placeholder="confirm password"
-                                component={MyInput}
+                                component={InputPassword}
                             />
                         </div>
 

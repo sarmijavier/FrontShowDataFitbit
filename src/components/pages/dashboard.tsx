@@ -50,8 +50,10 @@ export const data = {
 
 export function Dashboard() {
     return (
-        <div>
-            <h1>Holaaaa</h1>
+        <div className="p-12">
+            <Bar options={options} data={data} />
+            <Bar options={options} data={data} />
+            <Bar options={options} data={data} />
             <Bar options={options} data={data} />
 
         </div>
