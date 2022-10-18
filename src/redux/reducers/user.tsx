@@ -1,23 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export interface UserState {
     isAuth: boolean
+    email: string
 }
 
 const initialState: UserState = {
     isAuth: false,
+    email: ""
 }
 
 export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        authentication: (state) => {
-            // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the Immer library,
-            // which detects changes to a "draft state" and produces a brand new
-            // immutable state based off those changes
+        authentication: (state, action: PayloadAction<string>) => {
             state.isAuth = true
+            state.email = action.payload
         },
     },
 })

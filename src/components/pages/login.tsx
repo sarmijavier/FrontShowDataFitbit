@@ -1,15 +1,13 @@
 import * as React from "react"
 import {
     Formik,
-    FormikHelpers,
-    FormikProps,
     Form,
     Field,
-    FieldProps,
 } from "formik"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { authentication } from "../../redux/reducers/user"
+import { setLoggedIn } from "../../redux/reducers/authorization"
 
 interface MyFormValues {
     email: string
@@ -47,7 +45,8 @@ export const FormLogin: React.FC = () => {
         })
         const ans = await resp.json()
         if(ans.code === 200){
-            dispatch(authentication())
+            dispatch(authentication(ans.email))
+            dispatch(setLoggedIn(ans.active_session))
         }
         navigate("/dashboard")
     }

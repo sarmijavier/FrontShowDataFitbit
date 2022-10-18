@@ -10,6 +10,10 @@ import {
 } from "chart.js"
 import { Bar } from "react-chartjs-2"
 import faker from "faker"
+import { Authorization } from "../authorization/Authorization"
+import { Navbar } from "./Navbar"
+import { useSelector } from "react-redux"
+import { selectIsLoggedIn } from "../../redux/reducers/authorization"
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -49,8 +53,17 @@ export const data = {
 }
 
 export function Dashboard() {
+    const isLoggedIn = useSelector(selectIsLoggedIn)
+
     return (
         <div className="p-12">
+            {!isLoggedIn && (
+                <p className="text-center">
+                    Before to start we need you to log in on your Fitbit account 
+                </p>
+            )}
+            <br/>
+            <Authorization/>
             <Bar options={options} data={data} />
             <Bar options={options} data={data} />
             <Bar options={options} data={data} />
