@@ -18,10 +18,14 @@ export const userSlice = createSlice({
             state.isAuth = true
             state.email = action.payload
         },
+        cleanStateUser: (state) => {
+            state.isAuth = false
+            state.email = ""
+        }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { authentication } = userSlice.actions
+export const { authentication, cleanStateUser } = userSlice.actions
 
 export default userSlice.reducer

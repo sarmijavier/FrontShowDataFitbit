@@ -64,6 +64,7 @@ export function Dashboard() {
             )}
             <br/>
             <Authorization/>
+            
             <Bar options={options} data={data} />
             <Bar options={options} data={data} />
             <Bar options={options} data={data} />
