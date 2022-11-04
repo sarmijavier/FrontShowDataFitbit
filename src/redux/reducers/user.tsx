@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { RootState } from "../store/store"
 
 export interface UserState {
     isAuth: boolean
@@ -27,5 +28,7 @@ export const userSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { authentication, cleanStateUser } = userSlice.actions
+
+export const selectEmail = (state: RootState) => state.user.email
 
 export default userSlice.reducer

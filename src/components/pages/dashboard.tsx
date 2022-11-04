@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -14,6 +14,7 @@ import { Authorization } from "../authorization/Authorization"
 import { Navbar } from "./Navbar"
 import { useSelector } from "react-redux"
 import { selectIsLoggedIn } from "../../redux/reducers/authorization"
+import { selectEmail } from "../../redux/reducers/user"
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -25,26 +26,27 @@ export const options = {
         },
         title: {
             display: true,
-            text: "Chart.js Bar Chart",
+            text: "Heart Rate last 10 Days",
         },
     },
 }
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"]
+const labelsProvi = ["January", "February", "March", "April", "May", "June", "July"]
 
-export const data = {
-    labels,
+
+export const dataProvi = {
+    labels: labelsProvi,
     datasets: [
         {
             label: "Dataset 1",
-            data: labels.map(() =>
+            data: labelsProvi.map(() =>
                 faker.datatype.number({ min: 0, max: 1000 })
             ),
             backgroundColor: "rgba(255, 99, 132, 0.5)",
         },
         {
             label: "Dataset 2",
-            data: labels.map(() =>
+            data: labelsProvi.map(() =>
                 faker.datatype.number({ min: 0, max: 1000 })
             ),
             backgroundColor: "rgba(53, 162, 235, 0.5)",
@@ -52,8 +54,59 @@ export const data = {
     ],
 }
 
+export interface DateState {
+    complete_date: string
+}
+
+export interface HrState {
+    heart_rate_avg: number
+}
+
+export interface DataState {
+    data: object
+}
+
 export function Dashboard() {
     const isLoggedIn = useSelector(selectIsLoggedIn)
+    const email = useSelector(selectEmail)
+
+    const [data, setData] =  useState<{labels: any; datasets: any}>({
+        labels: "",
+        datasets: 0,
+    })
+
+    const handleRequest = async () => {
+        const resp = await fetch("/api/v1/hr", {
+            method: "POST",
+            body: JSON.stringify({email: email}),
+            headers: {
+                Accept: "application/json",
+            },
+        })
+        const ans = await resp.json()
+
+        const labels = ans.map(({complete_date}: DateState) => complete_date).slice(0,10)
+        
+
+        const dataTemplate = {
+            labels,
+            datasets: [
+                {
+                    label: "User 1",
+                    data: ans.slice(0,10).map(({heart_rate_avg}: HrState) =>
+                        heart_rate_avg
+                    ),
+                    backgroundColor: "rgba(0,255,0,0.7)",
+                }
+            ],
+        }
+        setData(dataTemplate)
+    }
+    
+    useEffect(() => {
+        handleRequest()
+    }, [])
+    
 
     return (
         <div className="p-12">
@@ -65,11 +118,7 @@ export function Dashboard() {
             <br/>
             <Authorization/>
             
-            <Bar options={options} data={data} />
-            <Bar options={options} data={data} />
-            <Bar options={options} data={data} />
-            <Bar options={options} data={data} />
-
+            <Bar options={options} data={data } />
         </div>
     )
 }
