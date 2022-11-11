@@ -45,7 +45,7 @@ export const FormLogin: React.FC = () => {
         })
         const ans = await resp.json()
         if(ans.code === 200){
-            dispatch(authentication(ans.email))
+            dispatch(authentication({email: ans.email, name: ans.name}))
             dispatch(setLoggedIn(ans.active_session))
         }
         navigate("/dashboard")
