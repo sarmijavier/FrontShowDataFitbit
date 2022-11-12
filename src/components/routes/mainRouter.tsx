@@ -11,6 +11,7 @@ import { RootState } from "../../redux/store/store"
 import { Dashboard } from "../pages/dashboard"
 import { FormLogin } from "../pages/login"
 import { Navbar } from "../pages/Navbar"
+import { FormPerfil } from "../pages/perfil"
 import { FormSignUp } from "../pages/singUp"
 import { ProtectedRoute } from "./protectedRoute"
 
@@ -30,7 +31,7 @@ export default function MainRouter() {
 
     return (
         <Router>
-            <Navbar/>
+            <Navbar />
             <Routes>
                 <Route
                     path="/dashboard"
@@ -43,6 +44,15 @@ export default function MainRouter() {
                 />
                 <Route path="/signup" element={<FormSignUp />} />
                 <Route path="/login" element={<FormLogin />} />
+                <Route
+                    path="/perfil"
+                    element={
+                        <ProtectedRoute
+                            {...defaultProtectedRouteProps}
+                            outlet={<FormPerfil />}
+                        />
+                    }
+                />
                 <Route path="/" element={<Navigate replace to="/login" />} />
             </Routes>
         </Router>

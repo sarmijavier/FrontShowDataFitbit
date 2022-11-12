@@ -6,7 +6,7 @@ import {
 } from "formik"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { authentication } from "../../redux/reducers/user"
+import { authentication, setEmergencyContact } from "../../redux/reducers/user"
 import { setLoggedIn } from "../../redux/reducers/authorization"
 
 interface MyFormValues {
@@ -46,6 +46,7 @@ export const FormLogin: React.FC = () => {
         const ans = await resp.json()
         if(ans.code === 200){
             dispatch(authentication({email: ans.email, name: ans.name}))
+            dispatch(setEmergencyContact({name_contact: ans.name_contact, number_contact: ans.number_contact, email_contact: ans.emai_contact}))
             dispatch(setLoggedIn(ans.active_session))
         }
         navigate("/dashboard")

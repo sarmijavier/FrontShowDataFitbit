@@ -23,9 +23,14 @@ export const Navbar: React.FC = () => {
                 ) : (
                     <ul className="flex flex-row justify-center">
                         <div className="flex justify-between w-full">
-                            <li className="m-12">
-                                <Link to="/dashboard">Dashboard</Link>
-                            </li>
+                            <div className="flex flex-col lg:flex-row">
+                                <li className="m-12">
+                                    <Link to="/dashboard">Dashboard</Link>
+                                </li>
+                                <li className="m-12">
+                                    <Link to="/perfil">Perfil</Link>
+                                </li>
+                            </div>
                             <li className="m-12">
                                 <button
                                     onClick={() => {
