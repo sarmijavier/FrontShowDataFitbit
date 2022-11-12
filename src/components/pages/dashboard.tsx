@@ -443,6 +443,12 @@ export function Dashboard() {
             <div className="text-2xl pb-12">
                 <h1>Welcome aboard {name}</h1>
             </div>
+            <div className="flex justify-center">
+                <h1>
+                    <a href="www.gooole.com">Descargar los datos historicos</a>
+                    
+                </h1>
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-2">
                 <div>
                     <Bar
