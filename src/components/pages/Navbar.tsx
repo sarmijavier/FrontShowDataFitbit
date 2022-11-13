@@ -14,10 +14,10 @@ export const Navbar: React.FC = () => {
                 {!isAuth ? (
                     <ul className="flex flex-row justify-center">
                         <li className="m-12 ">
-                            <Link to="/login">Login</Link>
+                            <Link to="/login">Iniciar Sesión</Link>
                         </li>
                         <li className="m-12 text-slate-100">
-                            <Link to="/signup">SignUp</Link>
+                            <Link to="/signup">Registrarse</Link>
                         </li>
                     </ul>
                 ) : (
@@ -38,7 +38,7 @@ export const Navbar: React.FC = () => {
                                         dispatch(cleanStateUser())
                                     }}
                                 >
-                                    Log out
+                                    Cerrar sesión
                                 </button>
                             </li>
                         </div>

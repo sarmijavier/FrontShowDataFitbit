@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { CSVLink, CSVDownload } from "react-csv"
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -148,7 +149,7 @@ export function Dashboard() {
                 ),
                 backgroundColor: "rgba(255, 99, 132, 0.5)",
             },
-        ]
+        ],
     })
 
     const [dataFood, setDataFood] = useState<{
@@ -170,7 +171,7 @@ export function Dashboard() {
                 ),
                 backgroundColor: "rgba(255, 99, 132, 0.5)",
             },
-        ]
+        ],
     })
 
     const [dataSleep, setDataSleep] = useState<{
@@ -186,7 +187,7 @@ export function Dashboard() {
                 ),
                 backgroundColor: "rgba(255, 99, 132, 0.5)",
             },
-        ]
+        ],
     })
 
     const [dataSpo, setDataSpo] = useState<{
@@ -202,7 +203,7 @@ export function Dashboard() {
                 ),
                 backgroundColor: "rgba(255, 99, 132, 0.5)",
             },
-        ]
+        ],
     })
 
     const [dataTemperature, setDataTemperature] = useState<{
@@ -218,7 +219,7 @@ export function Dashboard() {
                 ),
                 backgroundColor: "rgba(255, 99, 132, 0.5)",
             },
-        ]
+        ],
     })
 
     const [dataWeight, setDataWeight] = useState<{
@@ -234,9 +235,41 @@ export function Dashboard() {
                 ),
                 backgroundColor: "rgba(255, 99, 132, 0.5)",
             },
-        ]
+        ],
     })
 
+    const [csvFileDownload, setCsvFileDownload] = useState([
+        ["firstname", "lastname", "email"],
+        ["Ahmed", "Tomi", "ah@smthing.co.com"],
+    ])
+    const [csvFileDownload2, setCsvFileDownload2] = useState([
+        ["firstname", "lastname", "email"],
+        ["Ahmed", "Tomi", "ah@smthing.co.com"],
+    ])
+    const [csvFileDownload3, setCsvFileDownload3] = useState([
+        ["firstname", "lastname", "email"],
+        ["Ahmed", "Tomi", "ah@smthing.co.com"],
+    ])
+    const [csvFileDownload4, setCsvFileDownload4] = useState([
+        ["firstname", "lastname", "email"],
+        ["Ahmed", "Tomi", "ah@smthing.co.com"],
+    ])
+    const [csvFileDownload5, setCsvFileDownload5] = useState([
+        ["firstname", "lastname", "email"],
+        ["Ahmed", "Tomi", "ah@smthing.co.com"],
+    ])
+    const [csvFileDownload6, setCsvFileDownload6] = useState([
+        ["firstname", "lastname", "email"],
+        ["Ahmed", "Tomi", "ah@smthing.co.com"],
+    ])
+    const [csvFileDownload7, setCsvFileDownload7] = useState([
+        ["firstname", "lastname", "email"],
+        ["Ahmed", "Tomi", "ah@smthing.co.com"],
+    ])
+    const [csvFileDownload8, setCsvFileDownload8] = useState([
+        ["firstname", "lastname", "email"],
+        ["Ahmed", "Tomi", "ah@smthing.co.com"],
+    ])
 
     const handleRequest = async () => {
         const resp = await fetch("/api/v1/dashboard", {
@@ -332,7 +365,6 @@ export function Dashboard() {
             ],
         }
 
-
         setDataHr(dataHr)
 
         const labelsSleep = ans["sleep"].map(
@@ -343,17 +375,14 @@ export function Dashboard() {
             datasets: [
                 {
                     label: "Sleep Rate",
-                    data: ans["sleep"].map(
-                        ({ minutes }: any) => minutes
-                    ),
+                    data: ans["sleep"].map(({ minutes }: any) => minutes),
                     backgroundColor: "rgba(53, 162, 235, 0.5)",
                 },
             ],
         }
 
-
         setDataSleep(dataSleep)
-    
+
         const labelsSpo = ans["spo"].map(
             ({ complete_date }: DateState) => complete_date
         )
@@ -362,18 +391,14 @@ export function Dashboard() {
             datasets: [
                 {
                     label: "Blood oxygen saturation Rate",
-                    data: ans["spo"].map(
-                        ({ avg }: any) => avg
-                    ),
+                    data: ans["spo"].map(({ avg }: any) => avg),
                     backgroundColor: "rgba(255, 99, 132, 0.5)",
                 },
             ],
         }
 
-
         setDataSpo(dataSpo)
 
-            
         const labelsTemperature = ans["temperature"].map(
             ({ complete_date }: DateState) => complete_date
         )
@@ -390,7 +415,6 @@ export function Dashboard() {
             ],
         }
 
-
         setDataTemperature(dataTemperature)
 
         const labelsWeight = ans["weight"].map(
@@ -401,28 +425,21 @@ export function Dashboard() {
             datasets: [
                 {
                     label: "Bmi",
-                    data: ans["weight"].map(
-                        ({ bmi }: any) => bmi
-                    ),
+                    data: ans["weight"].map(({ bmi }: any) => bmi),
                     backgroundColor: "rgba(53, 162, 235, 0.5)",
                 },
                 {
                     label: "Fat",
-                    data: ans["weight"].map(
-                        ({ fat }: any) => fat
-                    ),
+                    data: ans["weight"].map(({ fat }: any) => fat),
                     backgroundColor: "rgba(255, 99, 132, 0.5)",
                 },
                 {
                     label: "Weight",
-                    data: ans["weight"].map(
-                        ({ weight }: any) => weight
-                    ),
+                    data: ans["weight"].map(({ weight }: any) => weight),
                     backgroundColor: "rgba(45, 123, 12, 0.5)",
                 },
             ],
         }
-
 
         setDataWeight(dataWeight)
     }
@@ -431,23 +448,90 @@ export function Dashboard() {
         handleRequest()
     }, [])
 
+    const downloadFile = async () => {
+        const resp = await fetch("/api/v1/csv", {
+            method: "POST",
+            body: JSON.stringify({ email: email }),
+            headers: {
+                Accept: "application/json",
+            },
+        })
+
+        const ans = await resp.json()
+        setCsvFileDownload(ans["data"])
+        setCsvFileDownload2(ans["data2"])
+        setCsvFileDownload3(ans["data3"])
+        setCsvFileDownload4(ans["data4"])
+        setCsvFileDownload5(ans["data5"])
+        setCsvFileDownload6(ans["data6"])
+        setCsvFileDownload7(ans["data7"])
+        setCsvFileDownload8(ans["data8"])
+    }
+
     return (
         <div className="p-12">
             {!isLoggedIn && (
                 <p className="text-center">
-                    Before to start we need you to log in on your Fitbit account
+                    Antes de iniciar, debes iniciar sesión con tú Fitbit
                 </p>
             )}
             <br />
             <Authorization />
             <div className="text-2xl pb-12">
-                <h1>Welcome aboard {name}</h1>
+                <h1>Bienvenido de nuevo {name}</h1>
             </div>
-            <div className="flex justify-center">
-                <h1>
-                    <a href="www.gooole.com">Descargar los datos historicos</a>
-                    
-                </h1>
+            <div className="flex flex-col">
+                <div>
+                    <button onClick={() => downloadFile()}>
+                        Descargar los datos historicos
+                    </button>
+                </div>
+                <div>
+                    {csvFileDownload.length > 2 && (
+                        <div className="flex flex-col">
+                            <div>
+                                <CSVLink data={csvFileDownload}>
+                                    Download Heart Rate File
+                                </CSVLink>
+                            </div>
+                            <div>
+                                <CSVLink data={csvFileDownload2}>
+                                    Download Activity File
+                                </CSVLink>
+                            </div>
+                            <div>
+                                <CSVLink data={csvFileDownload3}>
+                                    Download Spo2 File
+                                </CSVLink>
+                            </div>
+                            <div>
+                                <CSVLink data={csvFileDownload4}>
+                                    Download Breath File
+                                </CSVLink>
+                            </div>
+                            <div>
+                                <CSVLink data={csvFileDownload5}>
+                                    Download Food File
+                                </CSVLink>
+                            </div>
+                            <div>
+                                <CSVLink data={csvFileDownload6}>
+                                    Download Sleep File
+                                </CSVLink>
+                            </div>
+                            <div>
+                                <CSVLink data={csvFileDownload7}>
+                                    Download Temperature File
+                                </CSVLink>
+                            </div>
+                            <div>
+                                <CSVLink data={csvFileDownload8}>
+                                    Download Weight File
+                                </CSVLink>
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2">
                 <div>
@@ -532,8 +616,19 @@ export function Dashboard() {
                             <th>Water</th>
                         </tr>
                         <tbody>
-                            {
-                                dataFood.food.map(({ id, name, amount, calories, carbs, fat, fiber, protein, sodium, water }: any) => (
+                            {dataFood.food.map(
+                                ({
+                                    id,
+                                    name,
+                                    amount,
+                                    calories,
+                                    carbs,
+                                    fat,
+                                    fiber,
+                                    protein,
+                                    sodium,
+                                    water,
+                                }: any) => (
                                     <tr key={id} className="text-center">
                                         <td>{name}</td>
                                         <td>{amount}</td>
@@ -545,8 +640,8 @@ export function Dashboard() {
                                         <td>{sodium}</td>
                                         <td>{water}</td>
                                     </tr>
-                                ))
-                            }
+                                )
+                            )}
                         </tbody>
                     </table>
                 </div>

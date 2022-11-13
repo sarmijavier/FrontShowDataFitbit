@@ -124,7 +124,7 @@ export const FormPerfil: React.FC = () => {
                 >
                     <Form>
                         <h1 className="text-slate-100 pb-4">
-                            UPDATE INFORMATION
+                            ACTUALIZAR INFORMACIÓN
                         </h1>
                         <div className="grid">
                             <div className="flex text-left ">
@@ -163,7 +163,7 @@ export const FormPerfil: React.FC = () => {
                     }}
                 >
                     <Form>
-                        <h1 className="text-slate-100 pb-4">UPDATE PASSWORD</h1>
+                        <h1 className="text-slate-100 pb-4">ACTUALIZAR CONTRASEÑA</h1>
                         <div className="grid">
                             <div className="flex  text-left">
                                 <label
@@ -215,7 +215,7 @@ export const FormPerfil: React.FC = () => {
                 >
                     <Form>
                         <h1 className="text-slate-100 pb-4">
-                            EMERGENCY INFORMATION
+                            INFORMACIÓN DE CONTACTO DE EMERGENCIA
                         </h1>
                         <div className="grid">
                             <div className="flex  text-left my-2">
