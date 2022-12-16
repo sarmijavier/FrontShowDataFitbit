@@ -67,6 +67,24 @@ export interface HrState {
     heart_rate_avg: number
 }
 
+
+const Permission = () => {
+    return (
+        <div>
+            <p>
+                <br/>
+                Al iniciar sesión, el usuario acepta que esta aplicación
+                pueda obtener, organizar y guardar los datos fisiologicos del usuario.
+                No sin mencionar que por ningún motivo estos datos van a ser utilizados 
+                de forma incorrecta. 
+                El único proposito de la aplicación es que usted como usuario puede visualizar los datos
+                y si de ser necesario, tenga la posibilidad de descargarlos con el fin de utilizarlos
+                en la manera que el usuario disponga.
+            </p>
+        </div>
+    )
+}
+
 export function Dashboard() {
     const isLoggedIn = useSelector(selectIsLoggedIn)
     const email = useSelector(selectEmail)
@@ -471,9 +489,12 @@ export function Dashboard() {
     return (
         <div className="p-12">
             {!isLoggedIn && (
-                <p className="text-center">
-                    Antes de iniciar, debes iniciar sesión con tú Fitbit
-                </p>
+                <>
+                    <h1 className="text-center text-xl	font-bold	">
+                        Antes de comenzar, debes iniciar sesión con tú Fitbit
+                    </h1>
+                    <Permission />
+                </>
             )}
             <br />
             <Authorization />
